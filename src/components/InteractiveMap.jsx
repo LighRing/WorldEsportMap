@@ -2,22 +2,12 @@ import React, { useState } from "react";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "../styles/InteractiveMap.css";
+import worldCountries from "../../public/images/assets/data/custom.geo.json";
 
-// Données fictives
-const countriesData = [
-  {
-    type: "Feature",
-    properties: { name: "France" },
-    geometry: {
-      type: "Polygon",
-      coordinates: [[[2.0, 51.0], [3.0, 50.0], [2.0, 49.0], [1.0, 50.0], [2.0, 51.0]]],
-    },
-  },
-];
-
+// Exemple de données de joueurs avec catégories
 const playersData = [
   {
-    name: "Joueur1",
+    name: "Joueur France",
     country: "France",
     role: "ADC",
     section: "League of Legends",
@@ -27,13 +17,23 @@ const playersData = [
     photo: "https://via.placeholder.com/100",
   },
   {
-    name: "Joueur2",
-    country: "Allemagne",
+    name: "Joueur Allemagne",
+    country: "Germany",
     role: "Jungle",
     section: "Valorant",
     year: "2022",
     roster: "Équipe B",
     trophies: ["Trophée X"],
+    photo: "https://via.placeholder.com/100",
+  },
+  {
+    name: "Joueur Espagne",
+    country: "Spain",
+    role: "Mid",
+    section: "League of Legends",
+    year: "2023",
+    roster: "Équipe A",
+    trophies: ["Trophée Y"],
     photo: "https://via.placeholder.com/100",
   },
 ];
@@ -44,13 +44,16 @@ const years = ["2023", "2022"];
 const rosters = ["Équipe A", "Équipe B"];
 
 const InteractiveMap = () => {
+  const [hoveredCountry, setHoveredCountry] = useState(null);
   const [hoveredPlayer, setHoveredPlayer] = useState(null);
   const [filters, setFilters] = useState({ section: "", year: "", roster: "" });
 
+  // Gestion des filtres
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
+  // Filtrer les joueurs selon les catégories sélectionnées
   const filteredPlayers = playersData.filter((player) => {
     return (
       (filters.section === "" || player.section === filters.section) &&
@@ -59,24 +62,27 @@ const InteractiveMap = () => {
     );
   });
 
+  // Interaction avec chaque pays
   const onEachCountry = (country, layer) => {
     layer.on({
-      // Survol d'un pays
       mouseover: () => {
-        const countryPlayers = playersData.filter(
+        setHoveredCountry(country.properties.name); // Nom du pays
+        const countryPlayers = filteredPlayers.filter(
           (player) => player.country === country.properties.name
         );
         if (countryPlayers.length > 0) {
-          setHoveredPlayer(countryPlayers[0]); // Affiche les infos du premier joueur
+          setHoveredPlayer(countryPlayers[0]); // Premier joueur filtré
+        } else {
+          setHoveredPlayer(null);
         }
       },
-      // Quand la souris quitte le pays
       mouseout: () => {
-        setHoveredPlayer(null); // Supprime les infos du joueur
+        setHoveredCountry(null);
+        setHoveredPlayer(null);
       },
     });
   };
-  
+
   return (
     <div className="map-container">
       {/* Filtres dynamiques */}
@@ -116,35 +122,42 @@ const InteractiveMap = () => {
         </label>
       </div>
 
-      {/* Carte Interactive */}
-      <MapContainer center={[0, 0]} zoom={2} className="leaflet-map">
+      {/* Carte interactive */}
+      <MapContainer center={[20, 0]} zoom={2} className="leaflet-map">
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
         />
-        <GeoJSON data={{ type: "FeatureCollection", features: countriesData }} onEachFeature={onEachCountry} />
+        <GeoJSON data={worldCountries} onEachFeature={onEachCountry} />
       </MapContainer>
 
-      {/* Panneau joueur */}
-      {hoveredPlayer && (
-      <div className="player-panel">
-        <img
-          src={hoveredPlayer.photo}
-          alt={`${hoveredPlayer.name}`}
-          className="player-photo"
-        />
-        <h3 className="player-name">{hoveredPlayer.name}</h3>
-        <p className="player-info">Pays : {hoveredPlayer.country}</p>
-        <p className="player-info">Rôle : {hoveredPlayer.role}</p>
-        <h4 className="player-trophies-title">Trophées :</h4>
-        <ul className="player-trophies-list">
-          {hoveredPlayer.trophies.map((trophy, index) => (
-        <li key={index}>{trophy}</li>
-      ))}
-    </ul>
-  </div>
-)}
-
+      {/* Panneau d'information */}
+      {hoveredCountry && (
+        <div className="hover-info">
+          <h3>Pays : {hoveredCountry}</h3>
+          {hoveredPlayer ? (
+            <div>
+              <img
+                src={hoveredPlayer.photo}
+                alt={`${hoveredPlayer.name}`}
+                className="player-photo"
+              />
+              <p>Nom : {hoveredPlayer.name}</p>
+              <p>Rôle : {hoveredPlayer.role}</p>
+              <p>Section : {hoveredPlayer.section}</p>
+              <p>Année : {hoveredPlayer.year}</p>
+              <h4>Trophées :</h4>
+              <ul>
+                {hoveredPlayer.trophies.map((trophy, index) => (
+                  <li key={index}>{trophy}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <p>Aucun joueur associé.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

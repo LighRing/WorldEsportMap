@@ -1,70 +1,63 @@
+/* Conteneur principal */
+.map-container {
+  position: relative;
+}
+
+/* Carte Leaflet */
+.leaflet-map {
+  height: 90vh;
+  width: 100%;
+}
+
+/* Pays par défaut */
+.leaflet-interactive {
+  fill: #cce5ff; /* Couleur de fond des pays */
+  stroke: #0066cc; /* Couleur des bordures */
+  stroke-width: 1;
+}
+
+/* Pays au survol */
+.leaflet-interactive:hover {
+  fill: #66b2ff; /* Couleur survolée */
+  stroke: #003366; /* Bordure survolée */
+  stroke-width: 2;
+}
+
+/* Panneau d'information */
+.hover-info {
+  position: absolute;
+  top: 70px; /* Ajustez pour qu'il soit sous les filtres */
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.player-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Filtres dynamiques */
 .filters {
   display: flex;
   gap: 10px;
   padding: 10px;
   background-color: #f9f9f9;
   border-bottom: 1px solid #ccc;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1100; /* Priorité au-dessus de la carte et des autres éléments */
 }
 
 .filters label {
   display: flex;
   flex-direction: column;
   font-size: 14px;
-}
-
-.map-container {
-  position: relative;
-}
-
-.leaflet-map {
-  height: 90vh;
-  width: 100%;
-}
-
-.player-panel {
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  max-width: 300px;
-}
-
-.player-photo {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-.player-name {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.player-info {
-  font-size: 1em;
-  margin: 5px 0;
-}
-
-.player-trophies-title {
-  font-size: 1.2em;
-  margin-top: 15px;
-  text-align: center;
-}
-
-.player-trophies-list {
-  list-style-type: none;
-  padding: 0;
-  font-size: 0.9em;
-}
-
-.player-trophies-list li {
-  margin: 5px 0;
-  text-align: center;
 }
