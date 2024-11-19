@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "./InteractiveMap.css"; // Style spécifique au composant
-import countriesData from "../../public/assets/data/countries.geojson";
+import "../styles/InteractiveMap.css";
 
 // Exemple de données GeoJSON pour les pays
-const countriesData = [/* Insérez vos données GeoJSON ici */];
+const countriesData = [
+  /* Insérez vos données GeoJSON ici */
+];
 
 // Exemple de données de joueurs
 const playersData = [
