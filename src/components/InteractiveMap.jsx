@@ -14,6 +14,20 @@ const countriesWithClubs = [
   // Ajoutez plus de pays et de clubs ici si nécessaire
 ];
 
+const defaultStyle = {
+  fillColor: "transparent", // Pas de couleur de remplissage par défaut
+  fillOpacity: 0, // Transparence totale par défaut
+  weight: 1, // Épaisseur de la bordure
+  color: "#cccccc", // Couleur de bordure grise
+};
+
+const hoverStyle = {
+  fillColor: "#66b2ff", // Couleur de remplissage au survol
+  fillOpacity: 0.7, // Transparence au survol
+  weight: 2, // Épaisseur de la bordure au survol
+  color: "#003366", // Couleur de bordure au survol
+};
+
 const InteractiveMap = () => {
   const [hoveredCountry, setHoveredCountry] = useState(null);
   const [hoveredClubs, setHoveredClubs] = useState([]);
@@ -27,12 +41,16 @@ const InteractiveMap = () => {
         );
         setHoveredCountry(country.properties.name);
         setHoveredClubs(countryData ? countryData.clubs : []);
-        layer.setStyle({ fillColor: "#66b2ff", fillOpacity: 0.7 }); // Style survolé
+
+        // Applique un style spécifique lorsque la souris survole un pays
+        layer.setStyle(hoverStyle);
       },
       mouseout: () => {
         setHoveredCountry(null);
         setHoveredClubs([]);
-        layer.setStyle({ fillColor: "#cce5ff", fillOpacity: 1 }); // Style par défaut
+
+        // Réinitialise le style par défaut lorsque la souris quitte le pays
+        layer.setStyle(defaultStyle);
       },
     });
   };
@@ -44,7 +62,11 @@ const InteractiveMap = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
         />
-        <GeoJSON data={geoJsonData} onEachFeature={onEachCountry} />
+        <GeoJSON
+          data={geoJsonData}
+          onEachFeature={onEachCountry}
+          style={defaultStyle} // Applique le style par défaut
+        />
       </MapContainer>
 
       {hoveredCountry && (

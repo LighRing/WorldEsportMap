@@ -7,16 +7,18 @@
   width: 100%;
 }
 
+/* Style par défaut pour les pays */
 .leaflet-interactive {
-  fill: #cce5ff;
-  stroke: #0066cc;
-  stroke-width: 1;
+  fill: #cce5ff; /* Couleur de base des pays */
+  stroke: #0066cc; /* Couleur de bordure */
+  stroke-width: 1; /* Épaisseur de bordure */
 }
 
-.leaflet-interactive:hover {
-  fill: #66b2ff;
-  stroke: #003366;
-  stroke-width: 2;
+/* Style au survol */
+.hovered-country {
+  fill: #66b2ff; /* Couleur au survol */
+  stroke: #003366; /* Bordure au survol */
+  stroke-width: 2; /* Bordure plus épaisse */
 }
 
 .hoverInfo {

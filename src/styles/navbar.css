@@ -1,21 +1,31 @@
 .navbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
+    justify-content: center; /* Centre tous les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+    background-color: #333; /* Couleur de fond */
+    padding: 1em;
     color: white;
-    padding: 0.5em 1em;
+    position: relative; /* Nécessaire si le logo est à repositionner */
   }
   
   .navbar-logo {
     font-size: 1.5em;
     font-weight: bold;
+    position: absolute; /* Positionne le logo indépendamment */
+    left: 10px; /* Ajuste l'espace à gauche du logo */
+    color: white;
   }
   
   .navbar-links {
-    list-style: none;
     display: flex;
-    gap: 1em;
+    gap: 1em; /* Espacement entre les boutons */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-links li {
+    display: inline-block;
   }
   
   .navbar-links a {
@@ -24,6 +34,27 @@
   }
   
   .navbar-links a:hover {
-    text-decoration: underline;
+    text-decoration: none; /* Garde les liens sans soulignement au survol */
+  }
+  
+  /* Style des boutons */
+  .navbar-links button {
+    background-color: #444; /* Couleur de fond des boutons */
+    border: none;
+    border-radius: 5px; /* Coins arrondis */
+    color: white;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease; /* Animation de survol */
+  }
+  
+  .navbar-links button:hover {
+    background-color: #555; /* Couleur de fond au survol */
+  }
+  
+  .navbar-links button a {
+    text-decoration: none;
+    color: white;
   }
   
