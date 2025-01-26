@@ -5,7 +5,9 @@ import "../styles/navbar.css";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <h1 className="navbar-logo">World Esports Map</h1>
+      <Link to="/" className="navbar-logo">
+        World Esport Map
+      </Link>
       <ul className="navbar-links">
         <li>
           <button>

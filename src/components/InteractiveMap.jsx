@@ -28,6 +28,11 @@ const hoverStyle = {
   color: "#003366", // Couleur de bordure au survol
 };
 
+const bounds = [
+  [-90, -180], // Sud-Ouest (latitude minimale, longitude minimale)
+  [90, 180],   // Nord-Est (latitude maximale, longitude maximale)
+];
+
 const InteractiveMap = () => {
   const [hoveredCountry, setHoveredCountry] = useState(null);
   const [hoveredClubs, setHoveredClubs] = useState([]);
@@ -57,7 +62,15 @@ const InteractiveMap = () => {
 
   return (
     <div className="mapContainer">
-      <MapContainer center={[20, 10]} zoom={2} className="leafletMap">
+      <MapContainer
+        center={[20, 10]} // Centre initial de la carte
+        zoom={2.3} // Zoom initial
+        minZoom={2.3} // Zoom minimal
+        maxZoom={10} // Zoom maximal
+        className="leafletMap"
+        maxBounds={bounds} // Limite de déplacement
+        maxBoundsViscosity={1.0} // Viscosité pour empêcher le déplacement hors limites
+      >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
