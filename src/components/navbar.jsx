@@ -1,35 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "../styles/navbar.css";
+import React from 'react';
+import '../styles/navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ filterRegion, setFilterRegion }) => {
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-logo">
-        World Esport Map
-      </Link>
-      <ul className="navbar-links">
-        <li>
-          <button>
-            <Link to="/">Accueil</Link>
-          </button>
-        </li>
-        <li>
-          <button>
-            <Link to="/clubs">Clubs</Link>
-          </button>
-        </li>
-        <li>
-          <button>
-            <Link to="/competitions">Compétitions</Link>
-          </button>
-        </li>
-        <li>
-          <button>
-            <Link to="/classement">Classement</Link>
-          </button>
-        </li>
-      </ul>
+      <div className="navbar-brand">
+        <span className="brand-icon">🎮</span>
+        <h1>Esport Organizations Map</h1>
+      </div>
+      
+      <div className="navbar-filters">
+        <button 
+          className={`filter-btn ${filterRegion === 'ALL' ? 'active-filter' : ''}`}
+          onClick={() => setFilterRegion('ALL')}
+        >
+          🌍 ALL
+        </button>
+        <button 
+          className={`filter-btn ${filterRegion === 'EU' ? 'active-filter' : ''}`}
+          onClick={() => setFilterRegion('EU')}
+        >
+          🇪🇺 EU
+        </button>
+        <button 
+          className={`filter-btn ${filterRegion === 'NA' ? 'active-filter' : ''}`}
+          onClick={() => setFilterRegion('NA')}
+        >
+          🇺🇸 NA
+        </button>
+        <button 
+          className={`filter-btn ${filterRegion === 'ASIA' ? 'active-filter' : ''}`}
+          onClick={() => setFilterRegion('ASIA')}
+        >
+          🌏 ASIA
+        </button>
+      </div>
     </nav>
   );
 };

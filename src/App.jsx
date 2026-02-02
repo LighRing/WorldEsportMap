@@ -1,15 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import HomePage from "./pages/homePage";
-import ClubsPage from "./pages/clubsPage";
-import CompetitionsPage from "./pages/competitionsPage";
-import ClassementPage from "./pages/classementPage";
 
-const App = () => {
+import HomePage from "./pages/homePage";
+import ClubsPage from "./pages/ClubsPage";
+import CompetitionsPage from "./pages/CompetitionsPage";
+import ClassementPage from "./pages/ClassementPage";
+
+function App() {
   return (
     <Router>
-      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/clubs" element={<ClubsPage />} />
@@ -18,6 +17,6 @@ const App = () => {
       </Routes>
     </Router>
   );
-};
+}
 
 export default App;
